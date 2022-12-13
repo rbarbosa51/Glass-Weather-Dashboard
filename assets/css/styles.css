@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.debug {
+    outline: 1px solid red;
+}
+nav {
+    background-color: blue;
+    text-align: right;
+}
+.hundredPercent {
+    width: 100%;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+.flex-a {
+    flex: 200px;
+    justify-content: space-between;
+}
+aside {
+    width: 25%;
+}
+main {
+    width: 75%;
+}
+
+.mainDate {
+    border: 1px solid black;
+}
+.futureDates {
+    background-color: rgb(66, 66, 86);
+}
