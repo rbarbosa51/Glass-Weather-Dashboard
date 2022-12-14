@@ -1,7 +1,7 @@
 const searchButton = document.getElementById('searchButton');
 const cityNameInput = document.getElementById('cityNameInput');
 //Global Variables
-let localHistory = [{}];
+let localHistory = [];
 let currentCity = "";
 
 
@@ -13,13 +13,56 @@ const loadButtons = () => {
     }
     //Display and load localHistory
     //let tmpHistory = localStorage.getItem('history');
-    localHistory = JSON.parse(localStorage.getItem('history'));
-    console.log(localHistory.Age);
+    localHistory = localStorage.getItem('history').split(' ');
+    console.log(localHistory);
 }
 //Onload  get History
 window.addEventListener('load', loadButtons);
 
+/*
+> let historyTmp = [];
 
+> historyTmp.push({name:'Austin'});
+> historyTmp.push({name:'New York'});
+> localStorage.setItem('history2', JSON.stringify(historyTmp));
+> let data = localStorage.getItem('history2');
+
+< "[{\"name\":\"Austin\"},{\"name\":\"New York\"}]"
+> let NewArray = JSON.parse(data);
+
+> NewArray
+< [{name: "Austin"}, {name: "New York"}] (2)
+
+> NewArray[0].name;
+< "Austin"
+> NewArray[1].name;
+< "New York"
+
+*/
+
+
+
+
+
+//Update the info on localStorage
+const updateLocalStorage = () => {
+    //1) Check if there is actual data on localStorage
+    if (localStorage.getItem('history') === null) {
+        //If there is no value then set the current city in local storage
+        //---->>>
+        
+        localStorage.setItem('history', currentCity);
+        currentCity = '';
+    } else {
+        let tmpData = localStorage.getItem('history');
+        let tmpArray = tmpData.split(' ');
+        tmpArray.forEach( (element, index) => {
+            console.log(element);
+        })
+        console.log(`This is the tmpData ${tmpData}`);
+        //localHistory.push
+    }
+}
 
 //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 //5e07344a4e6136949c3131603519df87
@@ -48,7 +91,8 @@ const getWeather = (city) => {
     })
     .then( (data) => {
         console.log(data);
-        history.pushState
+        updateLocalStorage();
+        console.log('After');
 
     })
     .catch( (e) => {
@@ -57,9 +101,9 @@ const getWeather = (city) => {
 }
 
 
-window.onload = () => {
+/*window.onload = () => {
     console.log('Loaded');
-}
+}*/
 searchButton.addEventListener('click', async (e) => {
     e.preventDefault();
     let inputCity = cityNameInput.value;
