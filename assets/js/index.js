@@ -13,7 +13,8 @@ const loadButtons = () => {
     }
     //Display and load localHistory
     //let tmpHistory = localStorage.getItem('history');
-    localHistory = localStorage.getItem('history').split(' ');
+    localHistory = JSON.parse( localStorage.getItem('history'));
+
     console.log(localHistory);
 }
 //Onload  get History
@@ -46,12 +47,20 @@ window.addEventListener('load', loadButtons);
 
 //Update the info on localStorage
 const updateLocalStorage = () => {
+    
     //1) Check if there is actual data on localStorage
+
+
+    // Is this needed
+
     if (localStorage.getItem('history') === null) {
         //If there is no value then set the current city in local storage
         //---->>>
+
+        // Remember to use storeage events
         
-        localStorage.setItem('history', currentCity);
+        //localStorage.setItem('history', currentCity);
+        //cont tempStr = JSON.stringify({})
         currentCity = '';
     } else {
         let tmpData = localStorage.getItem('history');
@@ -61,6 +70,8 @@ const updateLocalStorage = () => {
         })
         console.log(`This is the tmpData ${tmpData}`);
         //localHistory.push
+
+        //currentCity = '';
     }
 }
 
@@ -107,6 +118,10 @@ const getWeather = (city) => {
 searchButton.addEventListener('click', async (e) => {
     e.preventDefault();
     let inputCity = cityNameInput.value;
+    if (inputCity === '') {
+        console.error("Enter a city Name");
+        return;
+    }
     console.log(`City Entered: ${inputCity}`);
     await getWeather(inputCity);
     
