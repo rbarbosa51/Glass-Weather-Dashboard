@@ -31,32 +31,6 @@ window.addEventListener('load', loadButtons);
 
 
 
-
-/*
-> let historyTmp = [];
-
-> historyTmp.push({name:'Austin'});
-> historyTmp.push({name:'New York'});
-> localStorage.setItem('history2', JSON.stringify(historyTmp));
-> let data = localStorage.getItem('history2');
-
-< "[{\"name\":\"Austin\"},{\"name\":\"New York\"}]"
-> let NewArray = JSON.parse(data);
-
-> NewArray
-< [{name: "Austin"}, {name: "New York"}] (2)
-
-> NewArray[0].name;
-< "Austin"
-> NewArray[1].name;
-< "New York"
-
-*/
-
-
-
-
-
 //Update the info on localStorage
 const updateLocalStorage = () => {
     //Guard against duplicate values (making them lowercase):
@@ -69,54 +43,18 @@ const updateLocalStorage = () => {
             return
         }
     });
-    
-    /*if (localStorage.getItem('history') == null) {
-        localHistory.push({city: currentCity});
-        localStorage.setItem('history', JSON.stringify(localHistory));
+    if (duplicate === true) {
         currentCity = '';
-    } else {
-
-    }*/
+        return;
+    }
+    console.log(' ---- updateLocalStorage')
+    //store to localHistory and then push to localStorage
     localHistory.push({city: currentCity});
     localStorage.setItem('history', JSON.stringify(localHistory));
     currentCity = '';
-    //localHistory.push({city: currentCity});
-    //localStorage.setItem('history', JSON.stringify(localHistory));
-    /*let tmpHistory = [];
-    const ItemReceived = localStorage.getItem('history');
-    if (ItemReceived === null) {
-        localStorage.setItem('history', JSON.stringify({city: currentCity}));
-        console.log('Wrote to localStorage');
-    } else {
-        
-    }/*
+    //Reload Buttons
+    //loadButtons();
     
-    currentCity = '';
-    //1) Check if there is actual data on localStorage
-
-
-    // Is this needed
-
-    /*if (localStorage.getItem('history') === null) {
-        //If there is no value then set the current city in local storage
-        //---->>>
-
-        // Remember to use storeage events
-        
-        //localStorage.setItem('history', currentCity);
-        //cont tempStr = JSON.stringify({})
-        currentCity = '';
-    } else {
-        let tmpData = localStorage.getItem('history');
-        let tmpArray = tmpData.split(' ');
-        tmpArray.forEach( (element, index) => {
-            console.log(element);
-        })
-        console.log(`This is the tmpData ${tmpData}`);
-        //localHistory.push
-
-        //currentCity = '';
-    }*/
 }
 
 //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
