@@ -29,6 +29,9 @@ const loadButtons = () => {
 //Onload  get History
 window.addEventListener('load', loadButtons);
 
+
+
+
 /*
 > let historyTmp = [];
 
@@ -56,9 +59,27 @@ window.addEventListener('load', loadButtons);
 
 //Update the info on localStorage
 const updateLocalStorage = () => {
-    if (localStorage.getItem('history') == null) {
+    //Guard against duplicate values (making them lowercase):
+    let duplicate = false;
+    localHistory.forEach( (element) => {
+        if (element.city.toLowerCase() === currentCity.toLowerCase()) {
+            console.log('Duplicate Found');
+            duplicate = true;
+            currentCity = '';
+            return
+        }
+    });
+    
+    /*if (localStorage.getItem('history') == null) {
+        localHistory.push({city: currentCity});
+        localStorage.setItem('history', JSON.stringify(localHistory));
+        currentCity = '';
+    } else {
 
-    }
+    }*/
+    localHistory.push({city: currentCity});
+    localStorage.setItem('history', JSON.stringify(localHistory));
+    currentCity = '';
     //localHistory.push({city: currentCity});
     //localStorage.setItem('history', JSON.stringify(localHistory));
     /*let tmpHistory = [];
