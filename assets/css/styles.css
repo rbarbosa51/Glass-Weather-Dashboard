@@ -38,3 +38,8 @@ main {
 .futureDates {
     background-color: rgb(66, 66, 86);
 }
+.buttons {
+    width: 100px;
+    height: 30px;
+    display: block;
+}

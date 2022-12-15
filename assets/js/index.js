@@ -1,9 +1,11 @@
 const searchButton = document.getElementById('searchButton');
 const cityNameInput = document.getElementById('cityNameInput');
+const historyButtons = document.getElementById('historyButtons');
 //Global Variables
 let localHistory = [];
 let currentCity = "";
 
+//let parsedHistory = JSON.parse(localStorage.getItem('history'));
 
 const loadButtons = () => {
     //Guard against empty local Storage
@@ -11,11 +13,18 @@ const loadButtons = () => {
         console.log('Empty localStorage');
         return;
     }
-    //Display and load localHistory
-    //let tmpHistory = localStorage.getItem('history');
-    localHistory = JSON.parse( localStorage.getItem('history'));
+    let parsedHistory = JSON.parse(localStorage.getItem('history'));
+    parsedHistory.forEach( (element) => {
+        const tmpButton = document.createElement('button');
+        tmpButton.setAttribute('id', element.city);
+        tmpButton.classList.add('buttons');
+        tmpButton.innerText = element.city;
+        historyButtons.appendChild(tmpButton);
+        localHistory.push({city: element.city});
+    });
+    console.log(`Contents of localStorage: ${JSON.stringify(parsedHistory)}`);
+    console.log(`Contents of localHistory: ${JSON.stringify(localHistory)}`)
 
-    console.log(localHistory);
 }
 //Onload  get History
 window.addEventListener('load', loadButtons);
@@ -47,13 +56,27 @@ window.addEventListener('load', loadButtons);
 
 //Update the info on localStorage
 const updateLocalStorage = () => {
+    if (localStorage.getItem('history') == null) {
+
+    }
+    //localHistory.push({city: currentCity});
+    //localStorage.setItem('history', JSON.stringify(localHistory));
+    /*let tmpHistory = [];
+    const ItemReceived = localStorage.getItem('history');
+    if (ItemReceived === null) {
+        localStorage.setItem('history', JSON.stringify({city: currentCity}));
+        console.log('Wrote to localStorage');
+    } else {
+        
+    }/*
     
+    currentCity = '';
     //1) Check if there is actual data on localStorage
 
 
     // Is this needed
 
-    if (localStorage.getItem('history') === null) {
+    /*if (localStorage.getItem('history') === null) {
         //If there is no value then set the current city in local storage
         //---->>>
 
@@ -72,7 +95,7 @@ const updateLocalStorage = () => {
         //localHistory.push
 
         //currentCity = '';
-    }
+    }*/
 }
 
 //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
@@ -103,7 +126,7 @@ const getWeather = (city) => {
     .then( (data) => {
         console.log(data);
         updateLocalStorage();
-        console.log('After');
+        console.log('After updateLocalStorage');
 
     })
     .catch( (e) => {
