@@ -5,7 +5,6 @@ const historyButtons = document.getElementById('historyButtons');
 let localHistory = [];
 let currentCity = "";
 
-//let parsedHistory = JSON.parse(localStorage.getItem('history'));
 
 const loadButtons = () => {
     //Guard against empty local Storage
@@ -13,6 +12,14 @@ const loadButtons = () => {
         console.log('Empty localStorage');
         return;
     }
+    
+    //Remove buttons if previously set
+    const tmpButtons = document.querySelectorAll('.buttons');
+    tmpButtons.forEach( (btn) => {
+        btn.parentElement.removeChild(btn);
+    });
+    
+    //Create Buttons
     let parsedHistory = JSON.parse(localStorage.getItem('history'));
     parsedHistory.forEach( (element) => {
         const tmpButton = document.createElement('button');
@@ -20,7 +27,7 @@ const loadButtons = () => {
         tmpButton.classList.add('buttons');
         tmpButton.innerText = element.city;
         historyButtons.appendChild(tmpButton);
-        localHistory.push({city: element.city});
+        
     });
     console.log(`Contents of localStorage: ${JSON.stringify(parsedHistory)}`);
     console.log(`Contents of localHistory: ${JSON.stringify(localHistory)}`)
@@ -46,14 +53,16 @@ const updateLocalStorage = () => {
     if (duplicate === true) {
         currentCity = '';
         return;
+    } else {
+        console.log("If Duplicate then error");
+        //store to localHistory and then push to localStorage
+        localHistory.push({city: currentCity});
+        localStorage.setItem('history', JSON.stringify(localHistory));
+        currentCity = '';
+        //Reload Buttons
+        loadButtons();
     }
-    console.log(' ---- updateLocalStorage')
-    //store to localHistory and then push to localStorage
-    localHistory.push({city: currentCity});
-    localStorage.setItem('history', JSON.stringify(localHistory));
-    currentCity = '';
-    //Reload Buttons
-    //loadButtons();
+    
     
 }
 
@@ -86,6 +95,7 @@ const getWeather = (city) => {
         console.log(data);
         updateLocalStorage();
         console.log('After updateLocalStorage');
+        cityNameInput.value = '';
 
     })
     .catch( (e) => {
@@ -101,7 +111,7 @@ searchButton.addEventListener('click', async (e) => {
     e.preventDefault();
     let inputCity = cityNameInput.value;
     if (inputCity === '') {
-        console.error("Enter a city Name");
+        console.log("Enter a city Name");
         return;
     }
     console.log(`City Entered: ${inputCity}`);
