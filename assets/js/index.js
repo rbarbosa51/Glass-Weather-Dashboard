@@ -16,11 +16,6 @@ const loadButtons = () => {
         console.log('Empty localStorage');
         return;
     }
-    //Load localHistory
-    /*let tmpHistory = JSON.parse(localStorage.getItem('history'));
-    tmpHistory.forEach( (element) => {
-        localHistory.push(element);
-    })*/
     
     //Remove buttons if previously set
     const tmpButtons = document.querySelectorAll('.buttons');
@@ -39,8 +34,11 @@ const loadButtons = () => {
         
     });
     console.log(`Contents of localStorage: ${JSON.stringify(parsedHistory)}`);
-    //console.log(`Contents of localHistory: ${JSON.stringify(localHistory)}`)
-    searchButton.disabled = false;
+    //Disable all buttons
+    let btnArray = document.querySelectorAll('button');
+    btnArray.forEach( (btn) => {
+        btn.disabled = false;
+    })
 
 }
 //Onload  get History
@@ -71,6 +69,10 @@ const updateLocalStorage = () => {
             console.log('Duplicate Found');
             duplicate = true;
             currentCity = '';
+            let buttonArray = document.querySelectorAll('button');
+            buttonArray.forEach( (btn) => {
+                btn.disabled = false;
+            })
             return
         } 
     });
@@ -111,11 +113,11 @@ const getWeather = (city) => {
     .then( (data) => {
         console.log(data);
         updateLocalStorage();
-        console.log('After updateLocalStorage');
         cityNameInput.value = '';
 
     })
     .catch( (e) => {
+        //To do:  Better Not a City Handling  Pref a Modal
         console.log(e);
     })
 }
@@ -132,7 +134,11 @@ searchButton.addEventListener('click', async (e) => {
         return;
     }
     console.log(`City Entered: ${inputCity}`);
-    searchButton.disabled = true;
+    //Disable all buttons
+    let buttonArray = document.querySelectorAll('button');
+    buttonArray.forEach( (btn) => {
+        btn.disabled = true;
+    })
     await getWeather(inputCity);
     
     
