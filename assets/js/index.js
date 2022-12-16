@@ -2,7 +2,11 @@ const searchButton = document.getElementById('searchButton');
 const cityNameInput = document.getElementById('cityNameInput');
 const historyButtons = document.getElementById('historyButtons');
 //Global Variables
-let localHistory = [];
+
+
+//let localHistory = [];
+
+
 let currentCity = "";
 
 
@@ -12,6 +16,11 @@ const loadButtons = () => {
         console.log('Empty localStorage');
         return;
     }
+    //Load localHistory
+    /*let tmpHistory = JSON.parse(localStorage.getItem('history'));
+    tmpHistory.forEach( (element) => {
+        localHistory.push(element);
+    })*/
     
     //Remove buttons if previously set
     const tmpButtons = document.querySelectorAll('.buttons');
@@ -30,7 +39,8 @@ const loadButtons = () => {
         
     });
     console.log(`Contents of localStorage: ${JSON.stringify(parsedHistory)}`);
-    console.log(`Contents of localHistory: ${JSON.stringify(localHistory)}`)
+    //console.log(`Contents of localHistory: ${JSON.stringify(localHistory)}`)
+    searchButton.disabled = false;
 
 }
 //Onload  get History
@@ -42,28 +52,35 @@ window.addEventListener('load', loadButtons);
 const updateLocalStorage = () => {
     //Guard against duplicate values (making them lowercase):
     let duplicate = false;
+    let localHistory = [];
+    let tmpHistory = JSON.parse(localStorage.getItem('history'));
+    //If localStorage empty then tmpHistory will be null
+    if (tmpHistory === null) {
+        localHistory.push({city: currentCity});
+        localStorage.setItem('history', JSON.stringify(localHistory));
+        currentCity = '';
+        loadButtons();
+        return;
+    }
+    tmpHistory.forEach( (element) => {
+        localHistory.push(element);
+    })
+    //Check for duplicate, if not duplicate then write to localStorage and reload buttons
     localHistory.forEach( (element) => {
         if (element.city.toLowerCase() === currentCity.toLowerCase()) {
             console.log('Duplicate Found');
             duplicate = true;
             currentCity = '';
             return
-        }
+        } 
     });
-    if (duplicate === true) {
-        currentCity = '';
-        return;
-    } else {
-        console.log("If Duplicate then error");
-        //store to localHistory and then push to localStorage
+    if (!duplicate) {
         localHistory.push({city: currentCity});
-        localStorage.setItem('history', JSON.stringify(localHistory));
-        currentCity = '';
-        //Reload Buttons
-        loadButtons();
+            localStorage.setItem('history', JSON.stringify(localHistory));
+            currentCity = '';
+            //Reload Buttons
+            loadButtons();
     }
-    
-    
 }
 
 //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
@@ -115,6 +132,8 @@ searchButton.addEventListener('click', async (e) => {
         return;
     }
     console.log(`City Entered: ${inputCity}`);
+    searchButton.disabled = true;
     await getWeather(inputCity);
+    
     
 });
