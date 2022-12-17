@@ -5,10 +5,30 @@ const historyButtons = document.getElementById('historyButtons');
 
 
 //let localHistory = [];
-
-
 let currentCity = "";
-
+/*
+<div id="f1Date">Placeholder</div>
+                        <div id="f1Icon"></div>
+                        <div id="f1Temp">Temp:</div>
+                        <div id="f1Wind">Wind:</div>
+                        <div id="f1Humidity">Humidity</div>
+*/
+const clearUI = () => {
+    const mCity =document.getElementById('f0City');
+    mCity.innerText = "Placeholder City";
+    for (let i = 0; i <=5; i++) {
+        const tmpDate = document.getElementById(`f${i}Date`);
+        tmpDate.innerText = ' Date';
+        const tmpIcon = document.getElementById(`f${i}Icon`);
+        tmpIcon.innerText = '';
+        const tmpTemp = document.getElementById(`f${i}Temp`);
+        tmpTemp.innerText = 'Temp:';
+        const tmpWind = document.getElementById(`f${i}Wind`);
+        tmpWind.innerText = 'Wind';
+        const tmpHumidity = document.getElementById(`f${i}Humidity`);
+        tmpHumidity.innerText = 'Humidity';
+    }
+}
 
 const loadButtons = () => {
     //Guard against empty local Storage
@@ -42,7 +62,10 @@ const loadButtons = () => {
 
 }
 //Onload  get History
-window.addEventListener('load', loadButtons);
+window.addEventListener('load', () => {
+    clearUI();
+    loadButtons()
+});
 
 
 
@@ -85,13 +108,16 @@ const updateLocalStorage = () => {
     }
 }
 
+const populateUI = (data) => {
+    console.log('Populate UI');
+}
 //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 //5e07344a4e6136949c3131603519df87
 //http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 const getWeather = (city) => {
     //This fetch gets the coordinates
     currentCity = city;
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},US&limit=1&appid=5e07344a4e6136949c3131603519df87`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=5e07344a4e6136949c3131603519df87`)
     .then( (res) => {
         return res.json();
     })
@@ -112,13 +138,17 @@ const getWeather = (city) => {
     })
     .then( (data) => {
         console.log(data);
+        console.log(data.cod);
+        console.log(`${data.list[0].main.temp}`);
         updateLocalStorage();
         cityNameInput.value = '';
 
     })
     .catch( (e) => {
-        //To do:  Better Not a City Handling  Pref a Modal
-        console.log(e);
+        //To do:  Better Not a City Handling ????
+        //console.log(e);
+        alert(e);
+        window.location.reload();
     })
 }
 
