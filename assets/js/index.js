@@ -116,6 +116,7 @@ const updateLocalStorage = () => {
 }
 
 const populateForecastUI = (data) => {
+    console.log('Forecast Data: ');
     console.log(data);
     //const mCity = document.getElementById('f0City');
     //mCity.innerText = currentCity;
@@ -134,7 +135,7 @@ const populateForecastUI = (data) => {
 
 }
 const populateCurrentUI = (data) => {
-    console.log('Current Weather');
+    console.log('Current Weather Data: ');
     console.log(data);
 
 }
