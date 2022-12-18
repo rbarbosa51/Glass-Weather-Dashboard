@@ -3,20 +3,27 @@ const cityNameInput = document.getElementById('cityNameInput');
 const historyButtons = document.getElementById('historyButtons');
 //Global Variables
 
+//https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 
 //let localHistory = [];
 let currentCity = "";
-/*
-<div id="f1Date">Placeholder</div>
-                        <div id="f1Icon"></div>
-                        <div id="f1Temp">Temp:</div>
-                        <div id="f1Wind">Wind:</div>
-                        <div id="f1Humidity">Humidity</div>
-*/
+let lat;
+let lon;
+
 const clearUI = () => {
-    const mCity =document.getElementById('f0City');
+    const mCity = document.getElementById('cCity');
     mCity.innerText = "Placeholder City";
-    for (let i = 0; i <=5; i++) {
+    const cDate = document.getElementById('cDate');
+    cDate.innerText = "Date ";
+    const cIcon = document.getElementById('cIcon');
+    cIcon.innerText = '';
+    const cTemp = document.getElementById('cTemp');
+    cTemp.innerText = 'Temp: ';
+    const cWind = document.getElementById('cWind');
+    cWind.innerText = 'Wind: ';
+    const cHumidity = document.getElementById('cHumidity');
+    cHumidity.innerText = 'Humidity: ';
+    for (let i = 0; i <=4; i++) {
         const tmpDate = document.getElementById(`f${i}Date`);
         tmpDate.innerText = ' Date';
         const tmpIcon = document.getElementById(`f${i}Icon`);
@@ -108,16 +115,34 @@ const updateLocalStorage = () => {
     }
 }
 
-const populateUI = (data) => {
-    console.log('Populate UI');
+const populateForecastUI = (data) => {
+    console.log(data);
+    //const mCity = document.getElementById('f0City');
+    //mCity.innerText = currentCity;
+    for (let i = 0; i <=4; i++) {
+        const tmpDate = document.getElementById(`f${i}Date`);
+        tmpDate.innerText = (data.list[(i * 8 + 1)].dt_txt.split(' '))[0];
+        const tmpIcon = document.getElementById(`f${i}Icon`);
+        tmpIcon.innerText = '';
+        const tmpTemp = document.getElementById(`f${i}Temp`);
+        tmpTemp.innerText = `Temp: ${data.list[(i * 8 + 1)].main.temp}`;
+        const tmpWind = document.getElementById(`f${i}Wind`);
+        tmpWind.innerText = `Wind: ${data.list[(i * 8 + 1)].wind.speed}`;
+        const tmpHumidity = document.getElementById(`f${i}Humidity`);
+        tmpHumidity.innerText = `Humidity: ${data.list[(i * 8 + 1)].main.humidity}`;
+    }
+
 }
-//https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-//5e07344a4e6136949c3131603519df87
-//http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+const populateCurrentUI = (data) => {
+    console.log('Current Weather');
+    console.log(data);
+
+}
+//This is the project's main function
 const getWeather = (city) => {
     //This fetch gets the coordinates
     currentCity = city;
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=5e07344a4e6136949c3131603519df87`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&exclude=daily&appid=5e07344a4e6136949c3131603519df87`)
     .then( (res) => {
         return res.json();
     })
@@ -126,36 +151,37 @@ const getWeather = (city) => {
     })
     .then( (coord) => {
         //Converting to string with only 2 decimal positions 
-        let lat = coord.lat.toFixed(2);
-        let lon = coord.lon.toFixed(2);
+        lat = coord.lat.toFixed(2);
+        lon = coord.lon.toFixed(2);
         console.log(`Lat: ${lat} and Lon: ${lon}`);
-        //This nested fetch gets the actual weather data
-        return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=5e07344a4e6136949c3131603519df87`)
+        //This nested fetch gets the forecast weather data
+        return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=5e07344a4e6136949c3131603519df87`);
 
     })
     .then( (res) => {
         return res.json();
     })
     .then( (data) => {
-        console.log(data);
-        console.log(data.cod);
-        console.log(`${data.list[0].main.temp}`);
+        populateForecastUI(data);
         updateLocalStorage();
-        cityNameInput.value = '';
+        //This nested fetch gets the current Weather data
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=5e07344a4e6136949c3131603519df87`);
 
     })
+    .then( (res) => {
+        return res.json();
+    })
+    .then( (data) => {
+        populateCurrentUI(data);
+        cityNameInput.value = '';
+    })
     .catch( (e) => {
-        //To do:  Better Not a City Handling ????
-        //console.log(e);
         alert(e);
         window.location.reload();
     })
 }
 
 
-/*window.onload = () => {
-    console.log('Loaded');
-}*/
 searchButton.addEventListener('click', async (e) => {
     e.preventDefault();
     let inputCity = cityNameInput.value;
@@ -163,6 +189,8 @@ searchButton.addEventListener('click', async (e) => {
         console.log("Enter a city Name");
         return;
     }
+    //In the event that an actual city is entered, then we can begin by first clearing the UI
+    clearUI();
     console.log(`City Entered: ${inputCity}`);
     //Disable all buttons
     let buttonArray = document.querySelectorAll('button');
