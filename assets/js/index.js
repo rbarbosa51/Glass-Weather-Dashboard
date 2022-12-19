@@ -27,7 +27,7 @@ const clearUI = () => {
         const tmpDate = document.getElementById(`f${i}Date`);
         tmpDate.innerText = ' Date';
         const tmpIcon = document.getElementById(`f${i}Icon`);
-        tmpIcon.innerText = '';
+        //tmpIcon.classList.add('background-none');
         const tmpTemp = document.getElementById(`f${i}Temp`);
         tmpTemp.innerText = 'Temp:';
         const tmpWind = document.getElementById(`f${i}Wind`);
@@ -117,7 +117,7 @@ const updateLocalStorage = () => {
 /*After analysing the data retrieved from the forecast api call, I decided to create this offset.
 The 5 day forecast is really 40 3 hour blocks of predictions. The starting point (data.list[0]) is GMT time (6 hours ahead of Texas). 
 However this creates the problem that the predictions are based on what time the app is ran. I want to standarize it so that it gets 5 days based
-on the nearest 12:00 (midday). Hence the need to offset the data. The standarization will provide a superior overview if the weather.
+on the nearest 12:00 GMT (regardless of whether the search is for Toyko, London, New York or Austin). Hence the need to offset the data. The standarization will provide a superior overview of the weather.
 
 */
 const dataOffset = (dateTime) => {
@@ -125,8 +125,9 @@ const dataOffset = (dateTime) => {
     let hour = parseInt(dateTime.split(' ')[1]);
     if (hour <= 12) {
         return (12 - hour) / 3;
+    } else {
+        return (36 - hour) / 3;
     }
-    console.log(hour);
     return hour;
 }
 const populateForecastUI = (data) => {
@@ -138,7 +139,16 @@ const populateForecastUI = (data) => {
         const tmpDate = document.getElementById(`f${i}Date`);
         tmpDate.innerText = (data.list[(i * 8 + offset)].dt_txt.split(' '))[0];
         const tmpIcon = document.getElementById(`f${i}Icon`);
-        tmpIcon.innerText = '';
+        console.log(`.i${data.list[(i * 8 + offset)].weather[0].icon }`);
+        const iconName = data.list[(i * 8 + offset)].weather[0].icon;
+        console.log(`iconName: ${iconName}`);
+        //tmpIcon.classList.add(`i${data.list[(i * 8 + offset)].weather[0].icon }`);
+        //tmpIcon.innerHTML = `<i class="i${data.list[(i * 8 + offset)].weather[0].icon }"></i>`
+        const iconImage = document.createElement('img');
+        //icon.classList.add(`i${data.list[(i * 8 + offset)].weather[0].icon }`);
+        //icon.classList.add('icons');
+        iconImage.src = `assets/images/${iconName}.png`
+        tmpIcon.appendChild(iconImage);
         const tmpTemp = document.getElementById(`f${i}Temp`);
         tmpTemp.innerText = `Temp: ${data.list[(i * 8 + offset)].main.temp}`;
         const tmpWind = document.getElementById(`f${i}Wind`);
