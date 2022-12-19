@@ -114,23 +114,37 @@ const updateLocalStorage = () => {
             loadButtons();
     }
 }
+/*After analysing the data retrieved from the forecast api call, I decided to create this offset.
+The 5 day forecast is really 40 3 hour blocks of predictions. The starting point (data.list[0]) is GMT time (6 hours ahead of Texas). 
+However this creates the problem that the predictions are based on what time the app is ran. I want to standarize it so that it gets 5 days based
+on the nearest 12:00 (midday). Hence the need to offset the data. The standarization will provide a superior overview if the weather.
 
+*/
+const dataOffset = (dateTime) => {
+    //This isolates the hour part
+    let hour = parseInt(dateTime.split(' ')[1]);
+    if (hour <= 12) {
+        return (12 - hour) / 3;
+    }
+    console.log(hour);
+    return hour;
+}
 const populateForecastUI = (data) => {
     console.log('Forecast Data: ');
     console.log(data);
-    //const mCity = document.getElementById('f0City');
-    //mCity.innerText = currentCity;
+    let offset = dataOffset(data.list[0].dt_txt)
+    
     for (let i = 0; i <=4; i++) {
         const tmpDate = document.getElementById(`f${i}Date`);
-        tmpDate.innerText = (data.list[(i * 8 + 1)].dt_txt.split(' '))[0];
+        tmpDate.innerText = (data.list[(i * 8 + offset)].dt_txt.split(' '))[0];
         const tmpIcon = document.getElementById(`f${i}Icon`);
         tmpIcon.innerText = '';
         const tmpTemp = document.getElementById(`f${i}Temp`);
-        tmpTemp.innerText = `Temp: ${data.list[(i * 8 + 1)].main.temp}`;
+        tmpTemp.innerText = `Temp: ${data.list[(i * 8 + offset)].main.temp}`;
         const tmpWind = document.getElementById(`f${i}Wind`);
-        tmpWind.innerText = `Wind: ${data.list[(i * 8 + 1)].wind.speed}`;
+        tmpWind.innerText = `Wind: ${data.list[(i * 8 + offset)].wind.speed}`;
         const tmpHumidity = document.getElementById(`f${i}Humidity`);
-        tmpHumidity.innerText = `Humidity: ${data.list[(i * 8 + 1)].main.humidity}`;
+        tmpHumidity.innerText = `Humidity: ${data.list[(i * 8 + offset)].main.humidity}`;
     }
 
 }
