@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* outline: 1px solid black; */
 }
 .debug {
     outline: 1px solid red;
@@ -9,9 +10,31 @@
 nav {
     background-color: blue;
     text-align: right;
+    width: 95%;
+    margin: 0 auto;
+    height: 3em;
+    
 }
+.centerText {
+    text-align: center;
+}
+/* .eightyPercent {
+    width: 80%;
+}
+.autoMargin {
+    margin: 0 auto;
+} */
 .hundredPercent {
     width: 100%;
+}
+.thirtyHeight {
+    height: 30px;
+}
+.topSpacer {
+    margin: 0.3em 0;
+}
+hr {
+    margin: 0.3em 0 1em;
 }
 .row {
     display: flex;
@@ -27,9 +50,11 @@ nav {
 }
 aside {
     width: 25%;
+    margin: 10px auto;
 }
 main {
-    width: 75%;
+    width: 70%;
+    margin: 10px auto;
 }
 
 .mainDate {
@@ -39,7 +64,7 @@ main {
     background-color: rgb(66, 66, 86);
 } */
 .buttons {
-    width: 100px;
+    width: 100%;
     height: 30px;
     display: block;
 }

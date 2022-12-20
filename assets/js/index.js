@@ -19,9 +19,7 @@ const clearUI = () => {
     const cDate = document.getElementById('cDate');
     cDate.innerText = "Date ";
     const cIcon = document.getElementById('cIcon');
-    while (cIcon.firstChild) {
-        cIcon.removeChild(cIcon.firstChild);
-    }
+    cIcon.src = '';
     const cTemp = document.getElementById('cTemp');
     cTemp.innerText = 'Temp: ';
     const cWind = document.getElementById('cWind');
@@ -61,6 +59,8 @@ const loadButtons = () => {
         const tmpButton = document.createElement('button');
         tmpButton.setAttribute('id', element.city);
         tmpButton.classList.add('buttons');
+        tmpButton.classList.add('topSpacer');
+        tmpButton.classList.add('thirtyHeight');
         tmpButton.innerText = element.city;
         tmpButton.addEventListener('click', async () => {
             //In the event that an actual city is entered, then we can begin by first clearing the UI
@@ -185,11 +185,11 @@ const populateCurrentUI = (data) => {
     const cIcon = document.getElementById('cIcon');
     cIcon.src = `assets/images/${icon}.png`;
     const cTemp = document.getElementById('cTemp');
-    cTemp.innerText = `${temp} \u00B0F`;
+    cTemp.innerText = `Temp: ${temp} \u00B0F`;
     const cWind = document.getElementById('cWind');
-    cWind.innerText = `${speed} MPH`;
+    cWind.innerText = `Wind: ${speed} MPH`;
     const cHumidity = document.getElementById('cHumidity');
-    cHumidity.innerText = `${humidity} %`;
+    cHumidity.innerText = `Humidity: ${humidity} %`;
 }
 //This is the project's main function
 const getWeather = (city) => {
