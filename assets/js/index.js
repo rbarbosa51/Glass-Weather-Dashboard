@@ -149,7 +149,7 @@ const populateForecastUI = (data) => {
         iconImage.src = `assets/images/${iconName}.png`
         tmpIcon.appendChild(iconImage);
         const tmpTemp = document.getElementById(`f${i}Temp`);
-        tmpTemp.innerText = `Temp: ${data.list[(i * 8 + offset)].main.temp} F`;
+        tmpTemp.innerText = `Temp: ${data.list[(i * 8 + offset)].main.temp} \u00B0F`;
         const tmpWind = document.getElementById(`f${i}Wind`);
         tmpWind.innerText = `Wind: ${data.list[(i * 8 + offset)].wind.speed} MPH`;
         const tmpHumidity = document.getElementById(`f${i}Humidity`);
