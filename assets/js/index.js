@@ -11,6 +11,9 @@ let lat;
 let lon;
 
 const clearUI = () => {
+    currentCity = '';
+    lat = 0;
+    lon = 0;
     const mCity = document.getElementById('cCity');
     mCity.innerText = "Placeholder City";
     const cDate = document.getElementById('cDate');
@@ -74,7 +77,7 @@ const loadButtons = () => {
         
     });
     console.log(`Contents of localStorage: ${JSON.stringify(parsedHistory)}`);
-    //Disable all buttons
+    //Enable all buttons
     let btnArray = document.querySelectorAll('button');
     btnArray.forEach( (btn) => {
         btn.disabled = false;
@@ -99,7 +102,7 @@ const updateLocalStorage = () => {
     if (tmpHistory === null) {
         localHistory.push({city: currentCity});
         localStorage.setItem('history', JSON.stringify(localHistory));
-        currentCity = '';
+        //currentCity = '';
         loadButtons();
         return;
     }
@@ -111,7 +114,7 @@ const updateLocalStorage = () => {
         if (element.city.toLowerCase() === currentCity.toLowerCase()) {
             console.log('Duplicate Found');
             duplicate = true;
-            currentCity = '';
+            //currentCity = '';
             let buttonArray = document.querySelectorAll('button');
             buttonArray.forEach( (btn) => {
                 btn.disabled = false;
@@ -122,7 +125,7 @@ const updateLocalStorage = () => {
     if (!duplicate) {
         localHistory.push({city: currentCity});
             localStorage.setItem('history', JSON.stringify(localHistory));
-            currentCity = '';
+            //currentCity = '';
             //Reload Buttons
             loadButtons();
     }
@@ -170,7 +173,23 @@ const populateForecastUI = (data) => {
 const populateCurrentUI = (data) => {
     console.log('Current Weather Data: ');
     console.log(data);
-
+    let formattedDate = new Date().toISOString().split('T')[0];
+    let {icon} = data.weather[0];
+    let {temp, humidity} = data.main;
+    let {speed} = data.wind;
+    console.log(`CityName: ${currentCity}, Date: ${formattedDate}, Icon: ${icon}, Temp: ${temp}\u00B0F , Wind: ${speed} MPH, Humidity: ${humidity}%`);
+    const cCity = document.getElementById('cCity');
+    cCity.innerText = currentCity;
+    const cDate = document.getElementById('cDate');
+    cDate.innerText = formattedDate;
+    const cIcon = document.getElementById('cIcon');
+    cIcon.src = `assets/images/${icon}.png`;
+    const cTemp = document.getElementById('cTemp');
+    cTemp.innerText = `${temp} \u00B0F`;
+    const cWind = document.getElementById('cWind');
+    cWind.innerText = `${speed} MPH`;
+    const cHumidity = document.getElementById('cHumidity');
+    cHumidity.innerText = `${humidity} %`;
 }
 //This is the project's main function
 const getWeather = (city) => {
