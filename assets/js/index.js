@@ -16,7 +16,6 @@ const clearUI = () => {
     const cDate = document.getElementById('cDate');
     cDate.innerText = "Date ";
     const cIcon = document.getElementById('cIcon');
-    //cIcon.innerText = '';
     while (cIcon.firstChild) {
         cIcon.removeChild(cIcon.firstChild);
     }
@@ -60,6 +59,17 @@ const loadButtons = () => {
         tmpButton.setAttribute('id', element.city);
         tmpButton.classList.add('buttons');
         tmpButton.innerText = element.city;
+        tmpButton.addEventListener('click', async () => {
+            //In the event that an actual city is entered, then we can begin by first clearing the UI
+            clearUI();
+            console.log(`City Entered: ${tmpButton.innerText}`);
+            //Disable all buttons
+            let buttonArray = document.querySelectorAll('button');
+            buttonArray.forEach( (btn) => {
+                btn.disabled = true;
+            })
+            await getWeather(tmpButton.innerText);
+        });
         historyButtons.appendChild(tmpButton);
         
     });
