@@ -3,9 +3,6 @@ const cityNameInput = document.getElementById('cityNameInput');
 const historyButtons = document.getElementById('historyButtons');
 //Global Variables
 
-//https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-
-//let localHistory = [];
 let currentCity = "";
 let lat;
 let lon;
@@ -30,7 +27,6 @@ const clearUI = () => {
         const tmpDate = document.getElementById(`f${i}Date`);
         tmpDate.innerText = ' Date';
         const tmpIcon = document.getElementById(`f${i}Icon`);
-        //tmpIcon.classList.add('background-none');
         const tmpTemp = document.getElementById(`f${i}Temp`);
         tmpTemp.innerText = 'Temp:';
         const tmpWind = document.getElementById(`f${i}Wind`);

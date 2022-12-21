@@ -57,15 +57,10 @@ nav h1 {
 .centerText {
     text-align: center;
 }
-/* .eightyPercent {
-    width: 80%;
-}
-.autoMargin {
-    margin: 0 auto;
-} */
+
 .hero {
-    width: 97%;
-    margin: 5px 20px 0px 20px;
+    width: 97vw;
+    margin: 5px 1em;
 }
 .thirtyHeight {
     height: 30px;
@@ -106,9 +101,7 @@ main {
     flex-direction: row;
     justify-content: left;
 }
-/* .futureDates {
-    background-color: rgb(66, 66, 86);
-} */
+
 .buttons {
     width: 100%;
     height: 30px;
