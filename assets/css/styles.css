@@ -115,3 +115,6 @@ main {
 #cCity {
     font-weight: 800;
 }
+input::placeholder {
+    text-align: center;
+}
