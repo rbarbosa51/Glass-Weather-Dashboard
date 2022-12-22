@@ -191,7 +191,7 @@ const populateCurrentUI = (data) => {
 const getWeather = (city) => {
     //This fetch gets the coordinates
     currentCity = city;
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&exclude=daily&appid=5e07344a4e6136949c3131603519df87`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&exclude=daily&appid=5e07344a4e6136949c3131603519df87`)
     .then( (res) => {
         return res.json();
     })
