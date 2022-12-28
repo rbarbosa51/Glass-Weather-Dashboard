@@ -1,120 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* outline: 1px solid black; */
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* outline: 1px solid black; */
+  font-family: "Poppins", sans-serif;
 }
 :root {
-    --front-color: rgb(255, 255, 255);
-    --button-color: rgb(116, 116, 233);
-    --back-color: rgb(234, 240, 245);
-    --blur-amount: 25px;
+  --front-color: rgb(255, 255, 255);
+  --button-color: rgb(116, 116, 233);
+  --back-color: rgb(234, 240, 245);
+  --blur-amount: 25px;
 }
 .debug {
-    outline: 1px solid red;
+  outline: 1px solid red;
 }
 body {
-    background-image: url(../images/background.png);
-    background-color: var(--back-color);
-    color: var(--front-color);
+  background-image: url(../images/background.png);
+  background-color: var(--back-color);
+  color: var(--front-color);
 }
 button {
-    color: var(--front-color);
-    background-color: var(--button-color);
-    border-radius: 10px;
+  color: var(--front-color);
+  background-color: var(--button-color);
+  border-radius: 10px;
 }
 nav {
-    /* background-color: blue; */
-    text-align: right;
-    /* width: 95%; */
-    margin: 0 auto;
-    height: 4em;
-    display: flex;
-    justify-content: right;
-    align-content: center;
-    
+  /* background-color: blue; */
+  text-align: right;
+  /* width: 95%; */
+  margin: 0 auto;
+  height: 4em;
+  display: flex;
+  justify-content: right;
+  align-content: center;
 }
 
 .glass {
-    background-color: rgba(255, 255, 255, 0.1);
-    z-index: 2;
-    padding: 10px;
-    border-radius: 1em;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(var(--blur-amount));
-    -webkit-backdrop-filter: blur(var(--blur-amount));
-    box-shadow: -15px 17px 17px rgba(10, 10, 10, 0.25);;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  padding: 10px;
+  border-radius: 1em;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  box-shadow: -15px 17px 17px rgba(10, 10, 10, 0.25);
 }
 nav h1 {
-    font-weight: 900;
-    font-size: 3em;
-    position: relative;
-    bottom: 0.3em;
+  font-weight: 900;
+  font-size: 3em;
+  position: relative;
+  bottom: 0.3em;
 }
 .centerText {
-    text-align: center;
+  text-align: center;
 }
 
 .hero {
-    width: 97vw;
-    margin: 5px 1em;
+  width: 97vw;
+  margin: 5px 1em;
 }
 .thirtyHeight {
-    height: 30px;
+  height: 30px;
 }
 .topSpacer {
-    margin: 0.3em 0;
+  margin: 0.3em 0;
 }
 hr {
-    margin: 0.8em 0.5em;
+  margin: 0.8em 0.5em;
 }
 .row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 .column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .flex-a {
-    flex: 200px;
-    justify-content: space-between;
+  flex: 200px;
+  justify-content: space-between;
 }
 aside {
-    width: 25%;
-    margin: 10px auto;
+  width: 25%;
+  margin: 10px auto;
 }
 main {
-    width: 70%;
-    margin: 10px auto;
-    
+  width: 70%;
+  margin: 10px auto;
 }
 
 .mainDate {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
-.mainDate span, .mainDate img {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
+.mainDate span,
+.mainDate img {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
 }
 
 .buttons {
-    width: 100%;
-    height: 30px;
-    display: block;
+  width: 100%;
+  height: 30px;
+  display: block;
 }
 
 .icons {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 #cCity {
-    font-weight: 800;
+  font-weight: 800;
 }
 input::placeholder {
-    text-align: center;
+  text-align: center;
 }

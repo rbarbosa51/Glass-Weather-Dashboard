@@ -1,83 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Glass Weather Dashboard</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
-</head>
-<body>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
     <nav class="hero glass">
-        <h1>Glass Weather Dashboard</h1>
+      <h1>Glass Weather Dashboard</h1>
     </nav>
     <div class="row">
-        <aside>
-            <div class="glass">
-                <h2 class="centerText">Search for a City</h2>
-                <form class="column">
-                    <input class="topSpacer thirtyHeight" type="text" name="" id="cityNameInput" placeholder="City Name" required>
-                    <button class="topSpacer thirtyHeight" class="" id="searchButton">Search</button>
-                </form>
-            </div>
-            <hr>
-            <div id="historyButtons" class="column glass">
-                
-            </div>
-        </aside>
-        <main class="column">
-            <div class="mainDate glass">
-                <div><span id="cCity"></span><span id="cDate"></span><img id="cIcon"></img></div>
-                <div id="cTemp"></div>
-                <div id="cWind"></div>
-                <div id="cHumidity"></div>
-            </div>
+      <aside>
+        <div class="glass">
+          <h2 class="centerText">Search for a City</h2>
+          <form class="column">
+            <input
+              class="topSpacer thirtyHeight"
+              type="text"
+              name=""
+              id="cityNameInput"
+              placeholder="City Name"
+              required
+            />
+            <button class="topSpacer thirtyHeight" class="" id="searchButton">
+              Search
+            </button>
+          </form>
+        </div>
+        <hr />
+        <div id="historyButtons" class="column glass"></div>
+      </aside>
+      <main class="column">
+        <div class="mainDate glass">
+          <div>
+            <span id="cCity"></span><span id="cDate"></span><img id="cIcon" />
+          </div>
+          <div id="cTemp"></div>
+          <div id="cWind"></div>
+          <div id="cHumidity"></div>
+        </div>
 
-            <div class="glass">
-                <h3>5-Day Forecast</h3>
-                <div class="row flex-a">
-                    <div class="futureDates">
-                        <div id="f0Date"></div>
-                        <div id="f0Icon" class="icons"></div>
-                        <div id="f0Temp"></div>
-                        <div id="f0Wind"></div>
-                        <div id="f0Humidity"></div>
-                    </div>
-                    <div class="futureDates">
-                        <div id="f1Date"></div>
-                        <div id="f1Icon" class="icons"></div>
-                        <div id="f1Temp"></div>
-                        <div id="f1Wind"></div>
-                        <div id="f1Humidity"></div>
-                    </div>
-                    <div class="futureDates">
-                        <div id="f2Date"></div>
-                        <div id="f2Icon" class="icons"></div>
-                        <div id="f2Temp"></div>
-                        <div id="f2Wind"></div>
-                        <div id="f2Humidity"></div>
-                    </div>
-                    <div class="futureDates">
-                        <div id="f3Date"></div>
-                        <div id="f3Icon" class="icons"></div>
-                        <div id="f3Temp"></div>
-                        <div id="f3Wind"></div>
-                        <div id="f3Humidity"></div>
-                    </div>
-                    <div class="futureDates">
-                        <div id="f4Date"></div>
-                        <div id="f4Icon" class="icons"></div>
-                        <div id="f4Temp"></div>
-                        <div id="f4Wind"></div>
-                        <div id="f4Humidity"></div>
-                    </div>
-                </div>
-                
+        <div class="glass">
+          <h3>5-Day Forecast</h3>
+          <div class="row flex-a">
+            <div class="futureDates">
+              <div id="f0Date"></div>
+              <div id="f0Icon" class="icons"></div>
+              <div id="f0Temp"></div>
+              <div id="f0Wind"></div>
+              <div id="f0Humidity"></div>
             </div>
-        </main>
+            <div class="futureDates">
+              <div id="f1Date"></div>
+              <div id="f1Icon" class="icons"></div>
+              <div id="f1Temp"></div>
+              <div id="f1Wind"></div>
+              <div id="f1Humidity"></div>
+            </div>
+            <div class="futureDates">
+              <div id="f2Date"></div>
+              <div id="f2Icon" class="icons"></div>
+              <div id="f2Temp"></div>
+              <div id="f2Wind"></div>
+              <div id="f2Humidity"></div>
+            </div>
+            <div class="futureDates">
+              <div id="f3Date"></div>
+              <div id="f3Icon" class="icons"></div>
+              <div id="f3Temp"></div>
+              <div id="f3Wind"></div>
+              <div id="f3Humidity"></div>
+            </div>
+            <div class="futureDates">
+              <div id="f4Date"></div>
+              <div id="f4Icon" class="icons"></div>
+              <div id="f4Temp"></div>
+              <div id="f4Wind"></div>
+              <div id="f4Humidity"></div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
     <script src="assets/js/index.js"></script>
-</body>
+  </body>
 </html>
